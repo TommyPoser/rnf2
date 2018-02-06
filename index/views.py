@@ -5,4 +5,4 @@ def index(request):
     return render(request, 'index.html', {'user': request.user})
 
 
-# WHAT THE?
+# WHAT THE? hack?

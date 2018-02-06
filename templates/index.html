@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block tittle %}hell, index here!{% endblock %}
+
+{% block content %}
+<ul>
+    <li>user: {{ user }}</li>
+    <li>username: {{ user.username }}</li>
+    <li>password: {{ user.password }}</li>
+    <li>mail: {{ user.email }}</li>
+    <li>id: {{ user.id }}</li>
+    <li>pk: {{ user.pk }}</li>
+
+</ul>
+
+
+{% endblock %}

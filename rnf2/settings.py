@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'rnf2.wsgi.application'
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': 'rnf2',
 #         'USER': 'root',
-#         'PASSWORD': 'hch7mysql7krdtn',
+#         'PASSWORD': 'heslo123',
 #         'HOST': '127.0.0.1',
 #         'PORT': '3306',
 #     }
@@ -91,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'rnf$rnf',
         'USER': 'rnf',
-        'PASSWORD': 'hch7mysql7krdtn',
+        'PASSWORD': 'heslo123',
         'HOST': 'rnf.mysql.pythonanywhere-services.com',
     }
 }
@@ -133,7 +133,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static") # use on server
+STATIC_ROOT = os.path.join(BASE_DIR, "static")  # use on server
 
 STATIC_URL = '/static/'
 

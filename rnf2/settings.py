@@ -25,8 +25,8 @@ SECRET_KEY = 'osiso(ke^^d(2+8cul&b-apt6h(ua9fc=o1z--9kjma+3vuf+o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['rnf.pythonanywhere.com' ]
+
+ALLOWED_HOSTS = ['rnf.pythonanywhere.com' ]
 
 # Application definition
 
@@ -75,26 +75,26 @@ WSGI_APPLICATION = 'rnf2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rnf2',
-        'USER': 'root',
-        'PASSWORD': 'hch7mysql7krdtn',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'rnf$rnf',
-#         'USER': 'rnf',
+#         'NAME': 'rnf2',
+#         'USER': 'root',
 #         'PASSWORD': 'hch7mysql7krdtn',
-#         'HOST': 'rnf.mysql.pythonanywhere-services.com',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'rnf$rnf',
+        'USER': 'rnf',
+        'PASSWORD': 'hch7mysql7krdtn',
+        'HOST': 'rnf.mysql.pythonanywhere-services.com',
+    }
+}
 
 
 # Password validation

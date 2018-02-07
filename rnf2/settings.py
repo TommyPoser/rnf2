@@ -137,4 +137,4 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static") # use on server
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # use on localhost
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # use on localhost

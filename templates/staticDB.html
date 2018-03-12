@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <style>
+        textarea {width: 900px; height: 700px;}
+        #table_wraper {float: right; border-collapse: collapse; }
+        #table_wraper td {padding: 5px; text-align: center;}
+        #table_wraper tr:nth-child(even) {background-color: #e3e3e3;}
+        #table_wraper thead {background-color: #a1a09c; }
+        .form {float: left}
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script  type="text/javascript">
+
+        $(function() {
+            generateTable();
+            $('#generate').click(function(){
+                generateTable();
+            })
+
+        });
+
+        function generateTable() {
+            var data = $('textarea[name=entry]').val();
+            console.log(data);
+            var rows = data.split("\n");
+
+            var table = $('<tbody id="table" />');
+
+            for(var y in rows) {
+                var cells = rows[y].split("\t");
+                var row = $('<tr />');
+                for(var x in cells) {
+                    if (cells[x] == 0.0) {cells[x] = '';}
+
+                    row.append('<td>'+cells[x]+'</td>');
+                    }
+                table.append(row);
+            }
+            // Insert into DOM
+            $('#table').replaceWith(table);
+        }
+    </script>
+{% endblock %}
+
+
+{% block tittle %} {{ link }}{% endblock %}
+
+{% block content %}
+    <table>
+        <tr>
+            <td><a href="{% url 'staticDB:consume_items' %}"> consume_items </a></td>
+            <td><a href="{% url 'staticDB:weapons' %}"> weapons </a></td>
+            <td><a href="{% url 'staticDB:armors' %}"> armors </a></td>
+            <td><a href="{% url 'staticDB:shields' %}"> shields </a></td>
+        </tr>
+    </table>
+
+
+    <form class="form" role="form" action="{% url link %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p><textarea name="entry">{{ textarea }}</textarea></p>
+    <input type="button" id="generate" value="Genereate Table"/>
+    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+        <table id="table_wraper" border="1" >
+        <thead>
+            <tr>
+            {% for cell in thead %}
+                {% if forloop.counter > 2 %}
+                <td> {{ cell.name }}</td>
+                {% endif %}
+            {% endfor %}
+            </tr>
+        </thead>
+        <tbody id="table"></tbody>
+    </table>
+
+{% endblock %}

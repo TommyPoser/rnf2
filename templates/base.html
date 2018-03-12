@@ -5,7 +5,11 @@
 
     </head>
 <body>
-<a href="http://127.0.0.1:8000/admin"> Admin </a><br>
+<a href="http://127.0.0.1:8000/admin"> Admin </a>
+<a href="{% url 'index:logout_user' %}"> Logout </a>
+<a href="{% url 'index:index' %}"> Index </a>
+<a href="{% url 'inventory:index' %}"> inventory </a>
+<a href="{% url 'staticDB:index' %}"> staticDB </a>
 
 
 <h2>{% block tittle %}title should be here{% endblock %}</h2>

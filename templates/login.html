@@ -1,0 +1,43 @@
+<html>
+
+<body>
+<h2>hell, login here!</h2>
+
+<h3>Log In</h3>
+
+    <form class="form-horizontal" role="form" action="{% url 'index:login_user'%}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for error in log_form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+
+        {% for field in log_form %}
+            <label>{{ field.label_tag }}</label>
+            <div>{{ field }}</div>
+        {% endfor %}
+
+    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+    <h3>Register for an Account</h3>
+
+    <form class="form-horizontal" role="form" action="{% url 'index:register_user'%}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% for error in reg_form.non_field_errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+
+        {% for field in reg_form %}
+            <label>{{ field.label_tag }}</label>
+            <div>{{ field }}</div>
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+
+
+
+</body>
+</html>

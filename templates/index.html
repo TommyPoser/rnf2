@@ -13,5 +13,54 @@
 
 </ul>
 
+{% if rp_form.message %}
+    {{ rp_form.message }}
+
+    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="action" value="add_player">
+    {% for error in rp_form.non_field_errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+
+    {% for field in rp_form %}
+        <label>{{ field.label_tag }}</label>
+        <div>{{ field }}</div>
+{% endfor %}
+
+    <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+    {% endif %}
+
+
+
+
+{% if players %}
+   <table>
+    {% for row in players %}
+        <tr>
+        {% for cell in row %}
+            <td> {{ cell }}</td>
+        {% endfor %}
+        </tr>
+    {% endfor %}
+   </table>
+{% endif %}
+
+Active player:
+{% if player %}
+   <table>
+   <tr>
+    {% for row in player %}
+        <td>
+        {{ row }}
+        </td>
+    {% endfor %}
+   </tr>
+   </table>
+{% endif %}
+
+<a href="{% url 'index:switch_player' %}"> switch_player </a><br>
+
 
 {% endblock %}

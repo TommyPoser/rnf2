@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block head %}
+ <style>
+        #grid .ent {
+            width: 350px;
+            height: 20px;
+            padding: 5px;
+            border: 2px solid #dddddd;
+        }
+
+        #grid .drag {
+            width: 340px;
+            height: 15px;
+            background-color: dodgerblue;
+        }
+
+
+        .ent.over {border: 2px dashed black !important;}
+    </style>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
+    <script  type="text/javascript">
+        function allowDrop(ev) {
+            if (!ev.target.hasChildNodes()) {
+                ev.preventDefault();
+            }
+        }
+
+        function dragStart(ev) {
+            ev.dataTransfer.setData("ItemID", ev.target.id);
+        }
+
+        function drop(ev) {
+            this.classList.remove('over');
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("ItemID");
+            ev.target.appendChild(document.getElementById(data));
+
+            var dragNumber = parseInt(data.match(/^drag(\d+)$/)[1], 10);
+            var entNumber = parseInt(ev.target.id.match(/^div(\d+)$/)[1], 10);
+
+            var event = {entNumber: entNumber, dragNumber: dragNumber};
+
+            jQuery.ajax({
+                type: "POST",
+                async: true,
+                url: '/inventory/save_json/',
+                data: $.toJSON(event),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data)
+                        {
+
+                           // alert("netNum: " + data["entNumber"] + " \n dragNum: " + data["dragNumber"]);
+
+                        },
+                error: function (err)
+                { alert(err.responseText)}
+            });
+        }
+
+        function handleDragEnter(ev) {
+            if (!ev.target.hasChildNodes()) {
+                this.classList.add('over');
+            }
+        }
+
+        function handleDragLeave() {
+          this.classList.remove('over');
+        }
+
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+
+    window.addEventListener('load',function(){
+
+      var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+
+        var divs = document.querySelectorAll('#grid .ent');
+        [].forEach.call(divs, function(div) {
+          div.addEventListener('dragenter', handleDragEnter, false);
+          div.addEventListener('dragover', allowDrop, false);
+          div.addEventListener('dragleave', handleDragLeave, false);
+          div.addEventListener('drop', drop, false);
+        });
+
+        var drags = document.querySelectorAll('#grid .drag');
+        [].forEach.call(drags, function(drag) {
+          drag.addEventListener('dragstart', dragStart, false);
+          drag.setAttribute('draggable', 'true');
+          //col.addEventListener('dragend', handleDragEnd, false);
+        });
+
+
+    }, true);
+    </script>
+
+{% endblock %}
+
+{% block tittle %}hell, index here! Did you tough?{% endblock %}
+
+{% block content %}
+
+
+<div id="grid">
+    {% for key, item in grid.items %}
+        {% if item %}
+            <div id="div{{ key }}" class="ent"><div id="drag{{ item.0 }}" class="drag">{{ item.3 }} </div></div>
+        {% comment %} mezi divem a dragem nesmí být odentrováno, jinak by v divu zusal child: "\n" {% endcomment %}
+        {% else %}
+            <div id="div{{ key }}" class="ent"></div>
+        {% endif %}
+        <br>
+    {% endfor %}
+</div>
+
+{% endblock %}

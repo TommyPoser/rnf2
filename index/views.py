@@ -2,14 +2,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, redirect
 from .forms import LogForm, RegForm, PlayerRequestForm
-from .models import Player, User
+from .models import Player, User, Hexa
 from .defs import execute_query
 
 
 @login_required(redirect_field_name=None)
 def index(request):
 
-    players, rp_form = add_player_render(request) # (tuple může mít i více než dva výstupy)
+    players, rp_form = add_player_render(request)
 
     if players:
         player = players.filter(pk=request.user.active_player)
@@ -61,6 +61,7 @@ def add_player(request, add_player_form):
     if add_player_form.is_valid():
         add_player_form = add_player_form.save(commit=False)
         add_player_form.user = request.user
+        add_player_form.pos = Hexa.objects.filter(biome__lt=3).order_by("?").first()
         add_player_form.save()
     return add_player_form
 

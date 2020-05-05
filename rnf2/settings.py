@@ -26,7 +26,9 @@ SECRET_KEY = 'osiso(ke^^d(2+8cul&b-apt6h(ua9fc=o1z--9kjma+3vuf+o'
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['rnf.pythonanywhere.com' ]
+ALLOWED_HOSTS = ['rnf.pythonanywhere.com', '127.0.0.1', ]
+
+INTERNAL_IPS = ['127.0.0.1', ]
 
 # Application definition
 
@@ -37,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'index',
+    'staticDB',
+    'inventory',
+    'map',
+    'recon',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'rnf2.urls'
@@ -75,26 +83,29 @@ WSGI_APPLICATION = 'rnf2.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'rnf2',
-#         'USER': 'root',
-#         'PASSWORD': 'heslo123',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rnf$rnf',
-        'USER': 'rnf',
+        'NAME': 'rnf2',
+        'USER': 'root',
         'PASSWORD': 'heslo123',
-        'HOST': 'rnf.mysql.pythonanywhere-services.com',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {"init_command": "SET foreign_key_checks = 0;"},
+        'STORAGE_ENGINE': 'INNODB',
+
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'rnf$rnf',
+#         'USER': 'rnf',
+#         'PASSWORD': 'heslo123',
+#         'HOST': 'rnf.mysql.pythonanywhere-services.com',
+#     }
+# }
 
 
 # Password validation
@@ -116,6 +127,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+AUTH_USER_MODEL = 'index.User'
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
@@ -133,8 +146,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")  # use on server
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")  # use on server
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # use on localhost
 
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # use on localhost
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = [os.path.join(BASE_DIR, 'static/media')]  # use on localhost
+
+LOGIN_URL = '/login_user/'
+LOGIN_REDIRECT_URL = '/login_user/'
+

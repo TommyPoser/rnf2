@@ -55,11 +55,6 @@ class RegForm(forms.ModelForm):
 
 class PlayerRequestForm(forms.ModelForm):
 
-    # def __init__(self, *args, **kwargs):
-    #     self.request = kwargs.pop('request', None)
-    #     self.validate = kwargs.pop('validate', None)
-    #     super(PlayerRequestForm, self).__init__(*args, **kwargs)
-
     def clean(self):
         name = self.cleaned_data.get('name')
         if Player.objects.filter(name=name).exists():

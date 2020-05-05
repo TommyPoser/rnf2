@@ -1,0 +1,75 @@
+body {background-color: #777;}
+
+.grid .ent {
+    width: 85px;
+    height: 85px;
+    padding: 5px;
+    border: 2px solid #dddddd;
+}
+
+.grid .drag {
+    width: 85px;
+    height: 70px;
+    background-color: dodgerblue;
+    font-size: 13px;
+}
+
+.ent.over {border: 2px dashed black !important;}
+
+.craft_box {position: absolute; top: 200px; left: 850px;}
+.inventory {position: absolute; top: 200px; left: 300px;}
+.recon {position: absolute; top: 500px; left: 300px;}
+.animals {position: absolute; top: 300px; left: 200px;}
+.animals tr {display: inline-table; margin-left: 100px;}
+
+ul {list-style-type:none;  margin: 0;padding: 0; overflow: hidden;}
+
+
+#canvas{
+    position: absolute;
+    top: 150px; left: 20px;
+    border:1px solid green;
+    background-color: mediumseagreen;
+}
+
+#map{
+    position: absolute;
+    top: 150px; left: 20px;
+    border:1px solid green;
+    width: 1600px;
+    height: 800px;
+    background-image: url("../static/media/map.png");
+}
+
+#hive {
+    position: absolute;
+    top: 150px; left: 20px;
+}
+
+.hexa {
+    position: absolute; border: 0px solid black;
+    border-radius: 50%; width: 24px; height: 24px;
+}
+
+.hexa:hover {border-width: 1px !important;}
+
+.no {border: 0px solid black;}
+.grass {border: 0px solid darkgreen;}
+.wood {border: 0px solid darkblue;}
+.hills {border: 0px solid red;}
+.town:after {content: 'x';}
+
+#recon {
+    position: absolute; top: 1000px; left: 20px;
+    width: 1200px; height: 500px;
+    background-image: url("../static/media/recon.png"), url("../static/media/pergamen.png");
+    background-repeat: no-repeat;
+}
+
+.animal {position: absolute; top: 100px;}
+.animal0 {left: 300px;}
+.animal1 {left: 620px;}
+.animal2 {left: 920px;}
+.animal3 {left: 1220px;}
+
+.hidden {display: none;}

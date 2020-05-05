@@ -1,15 +1,24 @@
+{% load static %}
 <html>
     <head>
+    <link rel="stylesheet" href="{% static 'main.css' %}" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-json/2.6.0/jquery.json.min.js"></script>
+    <script src="{% static 'dragndrop.js' %}"></script>
+    <script src="{% static 'map.js' %}"></script>
+    <script src="{% static 'recon.js' %}"></script>
         {% block head %}
         {% endblock %}
 
     </head>
 <body>
-<a href="http://127.0.0.1:8000/admin"> Admin </a>
-<a href="{% url 'index:logout_user' %}"> Logout </a>
-<a href="{% url 'index:index' %}"> Index </a>
-<a href="{% url 'inventory:index' %}"> inventory </a>
-<a href="{% url 'staticDB:index' %}"> staticDB </a>
+<a href="http://127.0.0.1:8000/admin"> Admin </a> |
+<a href="{% url 'index:logout_user' %}"> Logout </a> |
+<a href="{% url 'index:index' %}"> Index </a> |
+<a href="{% url 'inventory:index' %}"> inventory </a> |
+<a href="{% url 'staticDB:index' %}"> staticDB </a> |
+<a href="{% url 'map:index' %}"> map </a> |
+<a href="{% url 'recon:index' %}"> recon </a> |
 
 
 <h2>{% block tittle %}title should be here{% endblock %}</h2>
